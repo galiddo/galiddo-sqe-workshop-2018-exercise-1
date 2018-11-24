@@ -62,9 +62,28 @@ describe('The javascript parser', () => {
 
     it('if let else while', () => {
         assert.equal(
-            JSON.stringify(parseCode('if(x>2){ let y=1;} else{ while(1) y++;}')),
-            '[{"Line":1,"Type":"Assignment Expression","Name":"x","Condition":"","Value":"4"},'+
-            '{"Line":1,"Type":"Assignment Expression","Name":"y","Condition":"","Value":"1"}]'
+            JSON.stringify(parseCode('if(x>2){ let y=1;} else if(x<2){ while(1) {y++;}}')),
+            '[{"Line":1,"Type":"If Statement","Name":"","Condition":"x > 2","Value":""},'+
+            '{"Line":1,"Type":"variable declaration","Name":"y","Condition":"","Value":"1"},'+
+            '{"Line":1,"Type":"Else If Statement","Name":"","Condition":"x < 2","Value":""},'+
+            '{"Line":1,"Type":"While Statement","Name":"","Condition":"1","Value":""},'+
+            '{"Line":1,"Type":"Assigmant Expression","Name":"y","Condition":"","Value":"y+1"}]'
+        );
+    });
+    it('while update', () => {
+        assert.equal(
+            JSON.stringify(parseCode('let y=0; while(y<100){y++;}')),
+            '[{"Line":1,"Type":"variable declaration","Name":"y","Condition":"","Value":"0"},'+
+            '{"Line":1,"Type":"While Statement","Name":"","Condition":"y < 100","Value":""},'+
+            '{"Line":1,"Type":"Assigmant Expression","Name":"y","Condition":"","Value":"y+1"}]'
+        );
+    });
+    it('while assi', () => {
+        assert.equal(
+            JSON.stringify(parseCode('let y=0; while(y<100){y=5;}')),
+            '[{"Line":1,"Type":"variable declaration","Name":"y","Condition":"","Value":"0"},'+
+            '{"Line":1,"Type":"While Statement","Name":"","Condition":"y < 100","Value":""},'+
+            '{"Line":1,"Type":"Assignment Expression","Name":"y","Condition":"","Value":"5"}]'
         );
     });
 

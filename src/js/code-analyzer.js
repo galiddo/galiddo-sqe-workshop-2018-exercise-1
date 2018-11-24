@@ -13,8 +13,7 @@ const Pars = (toParse) =>
 
 
 const getExtractor = (parsedCode) =>
-{
-    let map = [];
+{    let map = [];
     let func;
     map['Program'] = exProgram;
     map['FunctionDeclaration'] = exFunDec;
