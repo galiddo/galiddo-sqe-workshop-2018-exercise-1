@@ -6,10 +6,8 @@ const parseCode = (codeToParse) => {
     return runExtractor(esprima.parseScript(codeToParse,{loc:true}));
 };
 
-const Pars = (toParse) =>
-{
-    return (toParse!=null)?escodegen.generate(toParse):'';
-};
+const Pars = (toParse) => {return (toParse!=null)?escodegen.generate(toParse):'';};
+
 
 
 const getExtractor = (parsedCode) =>
